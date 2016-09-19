@@ -30,7 +30,7 @@ if(DEBUG == T){
 }
 
 # select directory with raw data
-rootDir <- "C:\\GitHubRepos\\CCII_Shiny_RA3\\data\\"
+rootDir <- "C:\\GitHubRepos\\CCII_ShinyApp_RA3\\data\\"
 
 # select root directory (where all data will sit)
 # allData <- read.csv(paste0(rootDir, "AllData(RA2).csv"), header = TRUE)
