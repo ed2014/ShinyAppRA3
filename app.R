@@ -1107,7 +1107,9 @@ server <- function(input, output, session) {
                                    input$rcp2,")_(", 
                                    input$scn,"_", 
                                    input$scn2,")_",
-                                   input$fileToDownload,"_", 
+                                   input$fileToDownload,"_(", 
+                                   input$stats,")_(", 
+                                   input$comp,")_",
                                    input$crop,".", 
                                    input$fileType) },
     
