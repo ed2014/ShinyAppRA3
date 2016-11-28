@@ -1100,7 +1100,16 @@ server <- function(input, output, session) {
     
     # ext <- ifelse(input$fileType == "txt",".txt",".tif"),
     
-    filename = function() { paste(input$mainvar, input$fileType, sep=".") },
+   # filename = function() { paste(input$mainvar, input$fileType, sep=".") },
+    # FIXME: this will need more fields as the sim gets more factors
+    filename = function() { paste0(input$mainvar,"_(", 
+                                   input$rcp,"_", 
+                                   input$rcp2,")_(", 
+                                   input$scn,"_", 
+                                   input$scn2,")_",
+                                   input$fileToDownload,"_", 
+                                   input$crop,".", 
+                                   input$fileType) },
     
     #  filename = function() {paste0(input$mainvar,"_",input$compSelection,"_",input$statSelection,".",input$fileType) },
     
@@ -1123,9 +1132,17 @@ server <- function(input, output, session) {
         #  write.csv(df, file ,row.names=F)
         
       } else {
+         
+        datasetRasterInput <- reactive({
+          switch(input$fileToDownload,
+                 "dl_ref" = base_rasterLayer(),
+                 "dl_alt" = alt_rasterLayer(),
+                 "dl_dif" = diff_rasterLayer())
+        })
+        
         
         # save as raster
-        r <- diff_rasterLayer()
+        r <- datasetRasterInput()
         proj4string(r) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
         
         res <- writeRaster(r, filename=file, format="GTiff", overwrite=TRUE)
